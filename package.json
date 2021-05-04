@@ -1,0 +1,22 @@
+{
+  "name": "ecommerce-carrinho",
+  "version": "1.0.0",
+  "description": "https://grpc.io/docs/languages/node/basics/",
+  "main": "hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ufms-pet-si/ecommerce-carrinho.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ufms-pet-si/ecommerce-carrinho/issues"
+  },
+  "homepage": "https://github.com/ufms-pet-si/ecommerce-carrinho#readme",
+  "dependencies": {
+    "grpc": "^1.24.9"
+  }
+}
