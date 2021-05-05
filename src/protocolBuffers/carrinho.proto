@@ -1,0 +1,53 @@
+//https://developers.google.com/protocol-buffers/docs/proto3#adding_comments
+
+syntax = "proto3"; //protocol buffer language 
+
+message Carrinho { // model com 3 propriedades, ordenados por 1,2,3,4 e 5
+  string id = 1;
+  string clienteId = 2;
+  string listaProdutosId = 3;
+  //repeated string listaProdutosId = 3;
+  string dataEmitido = 4;
+  bool ativo = 5;
+}
+
+message Empty {}
+
+//mensagem que deve ser retornada
+message GetCarrinhoByIdResquest {
+	string id =1;
+}
+/*
+message SetCarrinhoByIdResquest {
+	Carrinho car =1;
+}
+
+
+message RegisterCarrinhoResquest {
+	Carrinho car =1;
+}
+
+
+
+message CarrinhoList {
+  repeated Carrinho carrinho = 1;
+}
+*/
+
+message CarrinhoResponse {
+  string id = 1;
+	Carrinho car = 2;
+	
+}
+
+
+//metodo
+service UserService {
+
+  rpc List (GetCarrinhoByIdResquest) returns (CarrinhoResponse) {}
+ /*
+  rpc GetCarrinhoById(GetCarrinhoByIdResquest) returns (CarrinhoResponse);
+  rpc SetCarrinhoById(SetCarrinhoByIdResquest) returns (CarrinhoResponse);
+  rpc RegisterCarrinho(RegisterCarrinhoResquest) returns (CarrinhoResponse);
+  */
+}
