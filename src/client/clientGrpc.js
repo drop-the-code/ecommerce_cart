@@ -1,8 +1,16 @@
-const grpc = require('grpc')
-const PROTO_PATH = '../protocolBuffers/carrinho.proto'
-const carrinhoService = grpc.load(PROTO_PATH).carrinhoService
 
-const client = new carrinhoService('localhost:50051',
-    grpc.credentials.createInsecure())
-    
-module.exports = client
+const messages = require('../protocolBuffers/carrinho.proto');
+const services = require('../protocolBuffers/carrinho.proto');
+const grpc = require('@grpc/grpc-js');
+
+function main() {
+    const client = new services.UserSvcClient('localhost:8080', grpc.credentials.createInsecure());
+
+    let registerReq = new messages.RegisterRequest();
+    registerReq.setName("carrinho1");
+    client.register(registerReq, function(err, response) {
+        console.log(response);
+    });
+}
+
+main();

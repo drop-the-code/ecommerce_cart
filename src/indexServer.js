@@ -1,10 +1,12 @@
 const grpc = require('@grpc/grpc-js');
 const db = require('db/connectionDB.js')
 require('dotenv').config();
+const PROTO_PATH = path.resolve('src/protocolBuffers/carrinho.proto')
+
 //const path = require('path')
 /*
 const protoLoader = require('@grpc/proto-loader');
-const PROTO_PATH = path.resolve('src/protocolBuffers/carrinho.proto')
+
 var packageDefinition = protoLoader.loadSync(
     PROTO_PATH,
     {keepCase: true,

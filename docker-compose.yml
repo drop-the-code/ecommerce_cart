@@ -5,7 +5,7 @@ services:
     user:
         build:
             context: ./src
-        image: microservice/demo/user
+        image: microservice-carrinho
         restart: "no"
         environment:
             - DB_URI=mongodb://mongo:27017/
