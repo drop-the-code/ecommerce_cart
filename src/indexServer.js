@@ -1,6 +1,6 @@
 const grpc = require('@grpc/grpc-js');
 const db = require('db/connectionDB.js')
-
+require('dotenv').config();
 //const path = require('path')
 /*
 const protoLoader = require('@grpc/proto-loader');
@@ -52,7 +52,9 @@ function main(){
   //const address = process.env.HOST + ":" + process.env.PORT;
   const address = '0.0.0.0:50051';
   routeServer.bindAsync(address, grpc.ServerCredentials.createInsecure(), () => {
-    routeServer.start();
+    //if routeServer != error{
+      routeServer.start();
+    //}
     console.log("Server running at " + address);
   });
 

@@ -1,5 +1,5 @@
 const { MongoClient } = require("mongodb");
-
+require('   ').config();
 // Mongo Connection
 const dbClient = new MongoClient(process.env.DB_URI, { useUnifiedTopology: true });
 async function connect() {
