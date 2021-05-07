@@ -3,51 +3,48 @@
 syntax = "proto3"; //protocol buffer language 
 
 //option go_package = "pb";
+package packagePB;
 
 message Carrinho { // model com 3 propriedades, ordenados por 1,2,3,4 e 5
   string id = 1;
   string clienteId = 2;
-  string listaProdutosId = 3;
-  //repeated string listaProdutosId = 3;
   string dataEmitido = 4;
   bool ativo = 5;
+  repeated string listaProdutosIds = 3;
 }
-
-message Empty {}
 
 //mensagem que deve ser retornada
-message GetCarrinhoByIdResquest {
+message GetCarrinhoByIdRequest {
 	string id =1;
 }
-/*
-message SetCarrinhoByIdResquest {
+
+message UpdateCarrinhoByIdRequest {
 	Carrinho car =1;
 }
 
-
-message RegisterCarrinhoResquest {
+message CreateCarrinhoRequest {
 	Carrinho car =1;
+  //string id = 2;
 }
 
-
-
-message CarrinhoList {
+message ListAllCarRequest {
   repeated Carrinho carrinho = 1;
 }
-*/
 
 message CarrinhoResponse {
-  string msg = 1;
-  //Carrinho car = 1;
+  Carrinho car = 1;
+  //string car = 1;
 }
 
-
+message CarrinhosResponse {
+  //repeat Carrinho cars = 1;
+  Carrinho cars = 1;
+}
 //metodo
-service UserService {
-  //rpc List(GetCarrinhoByIdResquest) returns (CarrinhoResponse) {}
-  rpc GetCarrinhoById(GetCarrinhoByIdResquest) returns (CarrinhoResponse) {};
- /*
-  rpc SetCarrinhoById(SetCarrinhoByIdResquest) returns (CarrinhoResponse);
-  rpc RegisterCarrinho(RegisterCarrinhoResquest) returns (CarrinhoResponse);
-  */
+service carrinhoService {
+  rpc ListAllCar(ListAllCarRequest) returns (CarrinhosResponse) {}
+  rpc GetCarrinhoById(GetCarrinhoByIdRequest) returns (CarrinhoResponse) {};
+  rpc UpdateCarrinhoById(UpdateCarrinhoByIdRequest) returns (CarrinhoResponse);
+  rpc CreateCarrinho(CreateCarrinhoRequest) returns (CarrinhoResponse);
+
 }
