@@ -1,8 +1,5 @@
-//https://developers.google.com/protocol-buffers/docs/proto3#adding_comments
+syntax = "proto3"; //protocol buffer 3 language 
 
-syntax = "proto3"; //protocol buffer language 
-
-//option go_package = "pb";
 package packagePB;
 
 message Carrinho { // model com 3 propriedades, ordenados por 1,2,3,4 e 5
@@ -24,7 +21,6 @@ message UpdateCarrinhoByIdRequest {
 
 message CreateCarrinhoRequest {
 	Carrinho car =1;
-  //string id = 2;
 }
 
 message ListAllCarRequest {
@@ -33,7 +29,6 @@ message ListAllCarRequest {
 
 message CarrinhoResponse {
   Carrinho car = 1;
-  //string car = 1;
 }
 
 message CarrinhosResponse {
