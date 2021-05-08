@@ -38,42 +38,48 @@ function findOne(id) {
 }
  
 export default { findAll, insert, findOne }
-
+*/
 
 // como gerar automaticamente uuid e id 
 //melhor usar mongoose para acessar os objetos?
-const mongoose = () => {
-    // function main_db
-    const mongoose = require('mongoose');
-    mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
-    // function connection
-    const db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function() {
-        // we're connected!
+
+// function main_db
+//const mongoose = require('mongoose');
+import {connect, connection, model} from 'mongoose'
+connect('mongodb://localhost:27017/app', {useNewUrlParser: true, useUnifiedTopology: true});
+// function connection
+//const db = connection;
+connection.on('error', console.error.bind(console, 'connection error:'));
+connection.once('open', function() {
+    // we're connected!
+});
+// function schema
+//const carrinhoSchema = requite('./carrinhoSchame').carrinhoSchema
+import { carrinhoSchema } from './carrinhoSchema.js'
+export const car = model('carrinho', carrinhoSchema);
+
+
+//const carrinho11 = new Carrinho({uuid: '11', clienteId: '1', listaProdutosIds: [1,2,3,4,5],dataEmitido: '04/05/2021', ativo: true });
+//console.log(silence.name); // 'Silence'
+
+// testando como faz funcao
+/*
+carrinhoSchema.methods.speak = function () {
+    const acao = this.uuid
+        ? "teste uuid " + this.uuid
+        : "ainda esta sem ID";
+    console.log(acao);
+} 
+
+
+const car = model('carrinho', carrinhoSchema);
+const a = new Carrinho({id:'22', uuid: '22', clienteId: '2', listaProdutosIds: [6,7,8,9,10], dataEmitido: '05/05/2021', ativo: false })
+a.acao()
+
+car.save(function (err, car) {
+    if (err) return console.error(err);
+    car.speak();
     });
-    // function schema
-    const carrinhoSchema = requite('./carrinhoSchame').carrinhoSchema
-    const Carrinho = mongoose.model('carrinho', carrinhoSchema);
-    const carrinho11 = new Carrinho({uuid: '11', clienteId: '1', listaProdutosIds: [1,2,3,4,5],dataEmitido: '04/05/2021', ativo: true });
-    console.log(silence.name); // 'Silence'
+*/ 
 
-    // testando como faz funcao
-    carrinhoSchema.methods.speak = function () {
-        const acao = this.uuid
-          ? "teste uuid " + this.uuid
-          : "ainda esta sem ID";
-        console.log(acao);
-    }  
-    const car = mongoose.model('carrinho', carrinhoSchema);
-    const a = new Carrinho({id:'22', uuid: '22', clienteId: '2', listaProdutosIds: [6,7,8,9,10], dataEmitido: '05/05/2021', ativo: false })
-    a.acao()
 
-    car.save(function (err, car) {
-        if (err) return console.error(err);
-        car.speak();
-      });
-
-}
-
-*/

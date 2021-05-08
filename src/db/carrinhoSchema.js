@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const carrinhoSchema = new Schema({
+export const carrinhoSchema = new Schema({
   id:  String,
   uuid:  String,
   clienteId: String,
