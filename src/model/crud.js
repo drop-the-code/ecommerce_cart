@@ -1,22 +1,26 @@
-import { tableCar } from '../db/connectionDB.js'
+import { modelCar } from '../db/connectionDB.js'
 
 
- //tableCar.find({id: 22})
- //tableCar.deleteOne({id: 22})
+ //modelCar.find({id: 22})
+ //modelCar.deleteOne({id: 22})
 
 export function insert(car){
-    const newCar = new tableCar(car)
-    newCar.save()
-    return newCar
+    try {
+        const newCar = new modelCar(car)
+        newCar.save()
+        return newCar
+    } catch (error) {
+        console.error(error)
+    }
+    return null
 }
 
 
 export function getAllCar(){
-    //const cursor = tableCar.find({}).cursor();
-    //for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {}
-
-    tableCar.find()  
-    .then(function(doc) {  
-      res.render('index', {items: doc});  
-    }) 
+    let allCars = []
+    const cursor = modelCar.find({}).cursor();
+    //for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
+    //  allCars.append(doc)
+    //}
+    return allCars
 }

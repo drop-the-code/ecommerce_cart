@@ -7,18 +7,21 @@ const createCarrinho =  (call, callback) => {
     //const idCar = call.request.car.id
     //const car = dbCarrinhos.find((car) => car.uuid == idCar)
     const newCar = {
-        'id': call.request.car.id,
+        //'id': call.request.car.id,
         'clienteId': call.request.car.clienteId,
         'dataEmitido': call.request.car.dataEmitido,
         'ativo': call.request.car.ativo,
         'listaProdutosIds': call.request.car.listaProdutosIds,
     }
     const car = insert(newCar)
+    console.log("novo carro criado")
+    console.log(newCar)
     callback(null, {car: car}) 
 }
 
 const listAllCar = (call, callback) => {
-    callback(null, null)
+    const allCars = getAllCar()
+    callback(null, {cars: allCars})
 }
 
 const getCarrinhoById = (call, callback) => {

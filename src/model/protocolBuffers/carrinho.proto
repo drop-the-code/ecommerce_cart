@@ -24,7 +24,7 @@ message CreateCarrinhoRequest {
 }
 
 message ListAllCarRequest {
-  repeated Carrinho carrinho = 1;
+  //repeated Carrinho cars = 1;
 }
 
 message CarrinhoResponse {
@@ -32,8 +32,8 @@ message CarrinhoResponse {
 }
 
 message CarrinhosResponse {
-  //repeat Carrinho cars = 1;
-  Carrinho cars = 1;
+  repeated Carrinho cars = 1;
+  //Carrinho cars = 1;
 }
 //metodo
 service carrinhoService {
