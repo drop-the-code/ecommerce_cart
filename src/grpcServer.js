@@ -6,10 +6,10 @@ const packageDefinition = loadSync(PROTO_PATH,{});
 const protoDescriptor = loadPackageDefinition(packageDefinition);
 const packagePB = protoDescriptor.packagePB;
 
-import {initializeEnvironmentVariables, getEnvPath} from './config'
+//import {initializeEnvironmentVariables, getEnvPath} from './config/index.js'
 
 // importa funcoes
-//const views = require('./view/carrinho.js')
+
 import { createCarrinho, getCarrinhoById, listAllCar, updateCarrinhoById} from './view/carrinho.js';
 
 export function getServer() {
@@ -30,10 +30,5 @@ export function getServer() {
             return instanceServer;
         //}else{ console.log(error) }
     });
-    return server;
+    return instanceServer;
 }
-
-// export {getServer}
-
-
-
