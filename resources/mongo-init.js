@@ -1,3 +1,3 @@
-db = db.getSiblingDB("carrinho");
+db = db.getSiblingDB("carrinhos");
 
 db.carrinho.insert({ name: "docker"});

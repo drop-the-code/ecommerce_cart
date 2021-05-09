@@ -18,9 +18,35 @@ export function insert(car){
 
 export function getAllCar(){
     let allCars = []
-    const cursor = modelCar.find({}).cursor();
-    //for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
-    //  allCars.append(doc)
-    //}
-    return allCars
+    /*
+    modelCar.find({}, function(err, cars){
+        cars.forEach(function(car){
+            allCars.push(car)
+        })
+    })
+    */
+    /*
+    for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
+      allCars.push(doc)
+    }
+    */
+    modelCar.find({}, function(err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+            console.log(result.json(result))
+            result.json(result);
+            return result.json(result)
+        }
+    });
+    //console.log(cursor)
+    return null
+}
+
+
+export function getCarById(id){
+    return modelCar.find(id, function(err, carFound){
+        console.log({car: carFound[0]})
+        return carFound[0]
+    })
 }

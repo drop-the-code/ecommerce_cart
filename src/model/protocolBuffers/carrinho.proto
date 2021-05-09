@@ -3,11 +3,11 @@ syntax = "proto3"; //protocol buffer 3 language
 package packagePB;
 
 message Carrinho { // model com 3 propriedades, ordenados por 1,2,3,4 e 5
-  string id = 1;
-  string clienteId = 2;
+  string uuid = 1;
+  string clienteId = 3;
   string dataEmitido = 4;
   bool ativo = 5;
-  repeated string listaProdutosIds = 3;
+  repeated string listaProdutosIds = 2;
 }
 
 //mensagem que deve ser retornada

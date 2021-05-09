@@ -1,7 +1,7 @@
 //import { connect } from '../db/connectionDB'
 //import { dbCarrinhos } from '../db/connectionDB.js'
 
-import { insert, getAllCar} from '../model/crud.js'
+import { insert, getAllCar, getCarById} from '../model/crud.js'
 
 const createCarrinho =  (call, callback) => {
     //const idCar = call.request.car.id
@@ -25,7 +25,9 @@ const listAllCar = (call, callback) => {
 }
 
 const getCarrinhoById = (call, callback) => {
-    callback(null, null)
+    const id = {_id: call.request.id}
+    const car = getCarById(id)
+    callback(null, {car: car})
 }
 
 const updateCarrinhoById = (call, callback) => {
