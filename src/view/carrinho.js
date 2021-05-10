@@ -1,21 +1,18 @@
 //import { connect } from '../db/connectionDB'
 //import { dbCarrinhos } from '../db/connectionDB.js'
 
-import { insert, getAllCar, getCarById} from '../model/crud.js'
+import { insert, getAllCar, getCarByid} from '../model/crud.js'
 
 const createCarrinho =  (call, callback) => {
     //const idCar = call.request.car.id
-    //const car = dbCarrinhos.find((car) => car.uuid == idCar)
+    //const car = dbCarrinhos.find((car) => car.id == idCar)
     const newCar = {
-        //'id': call.request.car.id,
         'clienteId': call.request.car.clienteId,
-        'dataEmitido': call.request.car.dataEmitido,
         'ativo': call.request.car.ativo,
         'listaProdutosIds': call.request.car.listaProdutosIds,
     }
     const car = insert(newCar)
-    console.log("novo carro criado")
-    console.log(newCar)
+    console.log('car: ', car)
     callback(null, {car: car}) 
 }
 
@@ -24,9 +21,11 @@ const listAllCar = (call, callback) => {
     callback(null, {cars: allCars})
 }
 
-const getCarrinhoById = (call, callback) => {
-    const id = {_id: call.request.id}
-    const car = getCarById(id)
+const getCarrinhoByid = async (call, callback) => {
+    console.log('call.request.id: ', call.request.id)
+    const id = {'_id': call.request.id}
+    const car = await getCarByid(id)
+    console.log({car: car})
     callback(null, {car: car})
 }
 
@@ -34,4 +33,4 @@ const updateCarrinhoById = (call, callback) => {
     callback(null, null)
 }
 
-export{createCarrinho, listAllCar, getCarrinhoById, updateCarrinhoById}
+export{createCarrinho, listAllCar, getCarrinhoByid, updateCarrinhoById}

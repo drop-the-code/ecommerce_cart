@@ -2,17 +2,17 @@ syntax = "proto3"; //protocol buffer 3 language
 
 package packagePB;
 
-message Carrinho { // model com 3 propriedades, ordenados por 1,2,3,4 e 5
-  string uuid = 1;
+message Carrinho { // MODEL: 3 propriedades, ordenados por 1,2,3,4,5
+  string id = 1;
+  string dataEmitido = 2;
   string clienteId = 3;
-  string dataEmitido = 4;
-  bool ativo = 5;
-  repeated string listaProdutosIds = 2;
+  bool ativo = 4;
+  repeated string listaProdutosIds = 5;
 }
 
-//mensagem que deve ser retornada
-message GetCarrinhoByIdRequest {
-	string id =1;
+//mensagem que deve ser recebida
+message GetCarrinhoByidRequest {
+	string id = 1;
 }
 
 message UpdateCarrinhoByIdRequest {
@@ -24,21 +24,22 @@ message CreateCarrinhoRequest {
 }
 
 message ListAllCarRequest {
-  //repeated Carrinho cars = 1;
+  repeated Carrinho cars = 1;
 }
 
+//mensagem que deve ser recebida
 message CarrinhoResponse {
   Carrinho car = 1;
 }
 
 message CarrinhosResponse {
   repeated Carrinho cars = 1;
-  //Carrinho cars = 1;
 }
-//metodo
+
+//metodos
 service carrinhoService {
-  rpc ListAllCar(ListAllCarRequest) returns (CarrinhosResponse) {}
-  rpc GetCarrinhoById(GetCarrinhoByIdRequest) returns (CarrinhoResponse) {};
+  rpc ListAllCar(ListAllCarRequest) returns (CarrinhosResponse) ;
+  rpc GetCarrinhoByid(GetCarrinhoByidRequest) returns (CarrinhoResponse);
   rpc UpdateCarrinhoById(UpdateCarrinhoByIdRequest) returns (CarrinhoResponse);
   rpc CreateCarrinho(CreateCarrinhoRequest) returns (CarrinhoResponse);
 

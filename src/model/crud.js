@@ -1,8 +1,7 @@
 import { modelCar } from '../db/connectionDB.js'
 
-
- //modelCar.find({id: 22})
- //modelCar.deleteOne({id: 22})
+//modelCar.find({id: 22})
+//modelCar.deleteOne({id: 22})
 
 export function insert(car){
     try {
@@ -43,10 +42,13 @@ export function getAllCar(){
     return null
 }
 
-
-export function getCarById(id){
-    return modelCar.find(id, function(err, carFound){
-        console.log({car: carFound[0]})
-        return carFound[0]
-    })
+export async function getCarByid(id){
+    try {
+        const car = await modelCar.findOne({_id:id})
+        return car
+    } catch (err){
+        // Tratar erro
+        console.err(err)
+        return null
+    }
 }

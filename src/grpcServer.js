@@ -10,14 +10,14 @@ const packagePB = protoDescriptor.packagePB
 
 // importa funcoes
 
-import { createCarrinho, getCarrinhoById, listAllCar, updateCarrinhoById} from './view/carrinho.js'
+import { createCarrinho, getCarrinhoByid, listAllCar, updateCarrinhoById } from './view/carrinho.js'
 
 export function getServer() {
     const instanceServer = new Server()
     // realiza bind/ligacao com o arquivo .proto
     instanceServer.addService(packagePB.carrinhoService.service, {
       "ListAllCar": listAllCar,
-      "GetCarrinhoById": getCarrinhoById,
+      "GetCarrinhoByid": getCarrinhoByid,
       "UpdateCarrinhoById": updateCarrinhoById,
       "CreateCarrinho": createCarrinho,
     })
