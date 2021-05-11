@@ -1,8 +1,5 @@
 import { modelCar } from '../db/connectionDB.js'
 
-//modelCar.find({id: 22})
-//modelCar.deleteOne({id: 22})
-
 export async function insert(car){
     try {
         const newCar = await new modelCar(car)
@@ -28,7 +25,6 @@ export async function getCarByid(id){
         const car = await modelCar.findOne({_id:id})
         return car
     } catch (err){
-        // Tratar erro
         console.err(err)
         return null
     }
@@ -36,10 +32,21 @@ export async function getCarByid(id){
 
 export async function deleteCarById(id){
     try {
-        const car = await modelCar.delete({_id:id})
+        const car = await modelCar.deleteOne({_id:id})
         return car
     } catch (err){
-        // Tratar erro
+        console.err(err)
+        return null
+    }
+}
+
+export async function updateCarById(car){
+    try {
+        const query = {_id: car['id']}
+        const options = { new: true }; 
+        const updatedCar = await modelCar.findOneAndUpdate(query, car, options)
+        return updatedCar
+    } catch (err){
         console.err(err)
         return null
     }
