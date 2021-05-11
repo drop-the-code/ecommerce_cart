@@ -52,3 +52,14 @@ export async function getCarByid(id){
         return null
     }
 }
+
+export async function deleteCarById(id){
+    try {
+        const car = await modelCar.delete({_id:id})
+        return car
+    } catch (err){
+        // Tratar erro
+        console.err(err)
+        return null
+    }
+}

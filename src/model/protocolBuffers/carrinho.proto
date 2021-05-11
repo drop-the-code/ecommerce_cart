@@ -11,7 +11,7 @@ message Carrinho { // MODEL: 3 propriedades, ordenados por 1,2,3,4,5
 }
 
 //mensagem que deve ser recebida
-message GetCarrinhoByidRequest {
+message GetCarrinhoByIdRequest {
 	string id = 1;
 }
 
@@ -27,6 +27,10 @@ message ListAllCarRequest {
   repeated Carrinho cars = 1;
 }
 
+message DeleteByIdRequest{
+  string id = 1;
+}
+
 //mensagem que deve ser recebida
 message CarrinhoResponse {
   Carrinho car = 1;
@@ -39,8 +43,8 @@ message CarrinhosResponse {
 //metodos
 service carrinhoService {
   rpc ListAllCar(ListAllCarRequest) returns (CarrinhosResponse) ;
-  rpc GetCarrinhoByid(GetCarrinhoByidRequest) returns (CarrinhoResponse);
+  rpc GetCarrinhoByid(GetCarrinhoByIdRequest) returns (CarrinhoResponse);
   rpc UpdateCarrinhoById(UpdateCarrinhoByIdRequest) returns (CarrinhoResponse);
   rpc CreateCarrinho(CreateCarrinhoRequest) returns (CarrinhoResponse);
-
+  rpc DeleteCarrinhoById(DeleteByIdRequest) returns (CarrinhoResponse);
 }

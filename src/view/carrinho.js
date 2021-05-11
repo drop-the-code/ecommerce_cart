@@ -1,7 +1,7 @@
 //import { connect } from '../db/connectionDB'
 //import { dbCarrinhos } from '../db/connectionDB.js'
 
-import { insert, getAllCar, getCarByid} from '../model/crud.js'
+import { insert, getAllCar, getCarByid, deleteCarById} from '../model/crud.js'
 
 const createCarrinho =  (call, callback) => {
     //const idCar = call.request.car.id
@@ -33,4 +33,10 @@ const updateCarrinhoById = (call, callback) => {
     callback(null, null)
 }
 
-export{createCarrinho, listAllCar, getCarrinhoByid, updateCarrinhoById}
+const deleteCarrinhoById = async (call, callback) => {
+    const id = {'_id': call.request.id}
+    const car = await deleteCarById(id)
+    callback(null, {car: car})
+}
+
+export{createCarrinho, listAllCar, getCarrinhoByid, updateCarrinhoById, deleteCarrinhoById}

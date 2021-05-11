@@ -10,7 +10,7 @@ const packagePB = protoDescriptor.packagePB
 
 // importa funcoes
 
-import { createCarrinho, getCarrinhoByid, listAllCar, updateCarrinhoById } from './view/carrinho.js'
+import { createCarrinho, getCarrinhoByid, listAllCar, updateCarrinhoById, deleteCarrinhoById } from './view/carrinho.js'
 
 export function getServer() {
     const instanceServer = new Server()
@@ -20,6 +20,7 @@ export function getServer() {
       "GetCarrinhoByid": getCarrinhoByid,
       "UpdateCarrinhoById": updateCarrinhoById,
       "CreateCarrinho": createCarrinho,
+      "DeleteCarrinhoById": deleteCarrinhoById,
     })
     
     const port = process.env.PORT || 50051
