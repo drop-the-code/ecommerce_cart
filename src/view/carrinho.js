@@ -3,7 +3,7 @@
 
 import { insert, getAllCar, getCarByid, deleteCarById} from '../model/crud.js'
 
-const createCarrinho =  (call, callback) => {
+const createCarrinho = async (call, callback) => {
     //const idCar = call.request.car.id
     //const car = dbCarrinhos.find((car) => car.id == idCar)
     const newCar = {
@@ -11,13 +11,13 @@ const createCarrinho =  (call, callback) => {
         'ativo': call.request.car.ativo,
         'listaProdutosIds': call.request.car.listaProdutosIds,
     }
-    const car = insert(newCar)
+    const car = await insert(newCar)
     console.log('car: ', car)
     callback(null, {car: car}) 
 }
 
-const listAllCar = (call, callback) => {
-    const allCars = getAllCar()
+const listAllCar = async (call, callback) => {
+    const allCars = await getAllCar()
     callback(null, {cars: allCars})
 }
 
@@ -29,7 +29,7 @@ const getCarrinhoByid = async (call, callback) => {
     callback(null, {car: car})
 }
 
-const updateCarrinhoById = (call, callback) => {
+const updateCarrinhoById = async (call, callback) => {
     callback(null, null)
 }
 

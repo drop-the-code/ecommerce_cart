@@ -3,9 +3,9 @@ import { modelCar } from '../db/connectionDB.js'
 //modelCar.find({id: 22})
 //modelCar.deleteOne({id: 22})
 
-export function insert(car){
+export async function insert(car){
     try {
-        const newCar = new modelCar(car)
+        const newCar = await new modelCar(car)
         newCar.save()
         return newCar
     } catch (error) {
@@ -14,32 +14,13 @@ export function insert(car){
     return null
 }
 
-
-export function getAllCar(){
-    let allCars = []
-    /*
-    modelCar.find({}, function(err, cars){
-        cars.forEach(function(car){
-            allCars.push(car)
-        })
-    })
-    */
-    /*
-    for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
-      allCars.push(doc)
+export async function getAllCar(){
+    try {
+        const cars = await modelCar.find({})
+        return cars
+    } catch (err){
+        console.err(err)
     }
-    */
-    modelCar.find({}, function(err, result) {
-        if (err) {
-          console.log(err);
-        } else {
-            console.log(result.json(result))
-            result.json(result);
-            return result.json(result)
-        }
-    });
-    //console.log(cursor)
-    return null
 }
 
 export async function getCarByid(id){
