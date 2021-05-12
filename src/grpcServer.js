@@ -1,14 +1,10 @@
 import { loadPackageDefinition, Server, ServerCredentials } from '@grpc/grpc-js'
 import { resolve } from 'path'
-const PROTO_PATH = resolve('model/protocolBuffers/carrinho.proto')
+const PROTO_PATH = resolve('./src/model/protocolBuffers/carrinho.proto')
 import { loadSync } from '@grpc/proto-loader'
 const packageDefinition = loadSync(PROTO_PATH,{})
 const protoDescriptor = loadPackageDefinition(packageDefinition)
 const packagePB = protoDescriptor.packagePB
-
-//import {initializeEnvironmentVariables, getEnvPath} from './config/index.js'
-
-// importa funcoes
 
 import { createCarrinho, getCarrinhoByid, listAllCar, updateCarrinhoById, deleteCarrinhoById } from './view/carrinho.js'
 
@@ -22,17 +18,14 @@ export function getServer() {
       "CreateCarrinho": createCarrinho,
       "DeleteCarrinhoById": deleteCarrinhoById,
     })
-    
-    const port = process.env.PORT || 50051
-    const host = process.env.HOST || '0.0.0.0'
+    const port = process.env.SERVER_PORT || 50051
+    const host = process.env.SERVER_HOST || '0.0.0.0'
     const address = host + ":" + port
-    //const address = '0.0.0.0:50051'
     instanceServer.bindAsync(address, ServerCredentials.createInsecure(), () => {
         //if (instanceServer != error) {
             instanceServer.start()
-            console.log("gRPC Server running at " + address)
-            return instanceServer
+            return "gRPC Server running at " + address
         //}else{ console.log(error) }
     })
-    return instanceServer
+    return "gRPC Server running at " + address
 }

@@ -1,6 +1,3 @@
-//import { connect } from '../db/connectionDB'
-//import { dbCarrinhos } from '../db/connectionDB.js'
-
 import { insert, getAllCar, getCarByid, deleteCarById, updateCarById} from '../model/crud.js'
 
 const createCarrinho = async (call, callback) => {
@@ -41,7 +38,7 @@ const updateCarrinhoById = async (call, callback) => {
     if(call.request.car.id != "" ){
         newCar['id'] = call.request.car.id
         const car = await updateCarById(newCar)
-        console.log('car: ', car)
+        console.log('requestCar: ', car)
         callback(null, {car: car}) 
     }
     console.log("newCar: ", newCar)

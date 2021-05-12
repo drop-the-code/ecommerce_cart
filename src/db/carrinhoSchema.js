@@ -6,3 +6,7 @@ export let carrinhoSchema = new Schema({
   ativo: Boolean,
   listaProdutosIds: [String]
 }, {timestamp: true});
+
+
+
+export const modelCar = mongoose.model('carrinho', carrinhoSchema)

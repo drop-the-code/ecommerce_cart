@@ -1,9 +1,15 @@
-import { getServer } from './grpcServer.js';
+import { getServer } from './grpcServer.js'
+import dotenv  from "dotenv"
+//import path from "path"
+//dotenv.config({ path: path.resolve('.env') })
+import { connectionMongoose } from './db/connectionDB.js'
+
+import { initializeEnvironmentVariables }  from './config/index.js'
 
 function main(){
-  //console.log(getServer)
-  const routeServer = getServer();
-  //console.log(routeServer);
+  initializeEnvironmentVariables('.env')
+  connectionMongoose()
+  const addressServer = getServer()
+  console.log(addressServer)
 }
-
 main()
