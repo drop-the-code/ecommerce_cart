@@ -4,7 +4,7 @@ package packagePB;
 
 message Carrinho { // MODEL: 3 propriedades, ordenados por 1,2,3,4,5
   string id = 1;
-  string dataEmitido = 2;
+  string updatedAt = 2;
   string clienteId = 3;
   bool ativo = 4;
   repeated string listaProdutosIds = 5;
@@ -44,7 +44,7 @@ message CarrinhosResponse {
 service carrinhoService {
   rpc ListAllCar(ListAllCarRequest) returns (CarrinhosResponse) ;
   rpc GetCarrinhoByid(GetCarrinhoByIdRequest) returns (CarrinhoResponse);
-  rpc UpdateCarrinhoById(UpdateCarrinhoByIdRequest) returns (CarrinhoResponse);
+  rpc UpdateProductListById(UpdateCarrinhoByIdRequest) returns (CarrinhoResponse);
   rpc CreateCarrinho(CreateCarrinhoRequest) returns (CarrinhoResponse);
   rpc DeleteCarrinhoById(DeleteByIdRequest) returns (CarrinhoResponse);
 }

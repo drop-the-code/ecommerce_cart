@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose
 
-export let carrinhoSchema = new Schema({
+const carrinhoSchema = Schema({
   clienteId: String,
   ativo: Boolean,
   listaProdutosIds: [String]
-}, {timestamp: true});
+}, {timestamps: true});
 
 
 

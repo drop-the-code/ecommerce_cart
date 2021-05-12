@@ -1,4 +1,4 @@
-import { insert, getAllCar, getCarByid, deleteCarById, updateCarById} from '../model/crud.js'
+import { insert, getAllCar, getCarByid, deleteCarById, updateStatus, updateProductList} from '../model/crud.js'
 
 const createCarrinho = async (call, callback) => {
     const newCar = {
@@ -24,32 +24,26 @@ const getCarrinhoByid = async (call, callback) => {
     callback(null, {car: car})
 }
 
-const updateCarrinhoById = async (call, callback) => {
+const updateProductListById = async (call, callback) => {
     const newCar = {}
-    if (call.request.car.clienteId != ""){
-        newCar['clienteId'] = call.request.car.clienteId 
-    }
-    if (call.request.car.ativo != ""){
-        newCar['ativo'] = call.request.car.ativo 
-    }
-    if (call.request.car.listaProdutosIds != ""){
-        newCar['listaProdutosIds'] = call.request.car.listaProdutosIds 
-    }
-    if(call.request.car.id != "" ){
+    if(call.request.car.id != "" && call.request.car.listaProdutosIds != ""){
+        newCar['listaProdutosIds'] = call.request.car.listaProdutosIds
         newCar['id'] = call.request.car.id
-        const car = await updateCarById(newCar)
+        const car = await updateProductList(newCar)
         console.log('requestCar: ', car)
         callback(null, {car: car}) 
+    }else{
+        console.log("newCar: ", newCar)
+        callback("INTERNAL", null)
     }
-    console.log("newCar: ", newCar)
-    callback(null, null)
 }
 
 const deleteCarrinhoById = async (call, callback) => {
-    const id = {'_id': call.request.id}
+    
+    const id =  call.request.id
     const car = await deleteCarById(id)
     console.log({car: car})
     callback(null, {car: car})
 }
 
-export{createCarrinho, listAllCar, getCarrinhoByid, updateCarrinhoById, deleteCarrinhoById}
+export{createCarrinho, listAllCar, getCarrinhoByid, updateProductListById, deleteCarrinhoById}
