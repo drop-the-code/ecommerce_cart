@@ -1,4 +1,4 @@
-import { modelCar } from '../db/carrinhoSchema.js'
+import { modelCar } from '../db/cartSchema.js'
 
 export async function insert(cartRequest){
     try {
@@ -44,7 +44,7 @@ export async function updateProductList(cartRequest){
     try {
         const query = {_id: cartRequest['id']}
         const updateIn = {
-            $push:{ listaProdutosIds: cartRequest['listaProdutosIds'][0]},
+            $push:{ productListId: cartRequest['productListId'][0]},
         }
         const options = { new: true }; 
         const updatedCar = await modelCar.findOneAndUpdate(query, updateIn, options)
@@ -58,11 +58,9 @@ export async function updateProductList(cartRequest){
 export async function updateStatus(cartRequest){
     try {
         const query = {_id: cartRequest['id']}
-        const updateIn = {
-            $push:{ listaProdutosIds: cartRequest['listaProdutosIds'][0]},
-        }
+        const updateIn = {status: cartRequest['status']}
         const options = { new: true }; 
-        const updatedCar = await modelCar.findOneAndUpdate(query, cartRequest, options)
+        const updatedCar = await modelCar.findOneAndUpdate(query, updateIn, options)
         return updatedCar
     } catch (err){
         console.error(err)

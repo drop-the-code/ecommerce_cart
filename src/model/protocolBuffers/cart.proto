@@ -16,11 +16,10 @@ message CartIdRequest {
 }
 
 message CartRequest {
-	Cart cart =1;
+	Cart cart = 1;
 }
 
-message GetAllCartRequest {
-  repeated Cart cars = 1;
+message Empty {
 }
 
 //mensagem que deve ser recebida
@@ -29,15 +28,15 @@ message CartResponse {
 }
 
 message CartsResponse {
-  repeated Cart cars = 1;
+  repeated Cart carts = 1;
 }
 
 //metodos
 service cartService {
-  rpc GetAllCarts(GetAllCartRequest) returns (CartsResponse) ;
+  rpc GetAllCarts(Empty) returns (CartsResponse) ;
   rpc GetCart(CartIdRequest) returns (CartResponse);
-  rpc UpdateProductList(CartIdRequest) returns (CartResponse);
-  rpc UpdateStatus(CartIdRequest) returns (CartResponse);
-  rpc CreateCart(CartIdRequest) returns (CartResponse);
+  rpc UpdateAddOneProduct(CartRequest) returns (CartResponse);
+  rpc UpdateStatus(CartRequest) returns (CartResponse);
+  rpc CreateCart(CartRequest) returns (CartResponse);
   rpc DeleteCart(CartIdRequest) returns (CartResponse);
 }

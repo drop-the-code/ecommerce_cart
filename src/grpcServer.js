@@ -7,7 +7,7 @@ const packageDefinition = loadSync(PROTO_PATH,{})
 const protoDescriptor = loadPackageDefinition(packageDefinition)
 const packagePB = protoDescriptor.packagePB
 
-import { createCart, getCartById, getAllCarts, updateProductListById, updateStatusById, deleteCartById } from './view/carrinho.js'
+import { createCart, getCartById, getAllCarts, UpdateAddOneProduct, updateStatusById, deleteCartById } from './view/cart.js'
 
 export function runServer() {
     const instanceServer = new Server()
@@ -15,7 +15,7 @@ export function runServer() {
     instanceServer.addService(packagePB.cartService.service, {
       "GetAllCarts"      : getAllCarts,
       "GetCart"          : getCartById,
-      "UpdateProductList": updateProductListById,
+      "UpdateAddOneProduct": UpdateAddOneProduct,
       "UpdateStatus"     : updateStatusById,
       "CreateCart"       : createCart,
       "DeleteCart"       : deleteCartById,
