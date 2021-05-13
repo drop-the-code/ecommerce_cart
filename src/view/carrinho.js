@@ -1,49 +1,72 @@
-import { insert, getAllCar, getCarByid, deleteCarById, updateStatus, updateProductList} from '../model/crud.js'
+import { insert, listAllCarts, getCarByid, deleteCarById, updateStatus, updateProductList} from '../model/carrinho.js'
 
-const createCarrinho = async (call, callback) => {
-    const newCar = {
+export const createCart = async (call, callback) => {
+    const cartRequest = {
         'clienteId': call.request.car.clienteId,
         'ativo': call.request.car.ativo,
         'listaProdutosIds': call.request.car.listaProdutosIds,
     }
-    const car = await insert(newCar)
-    console.log('car: ', car)
-    callback(null, {car: car}) 
-}
-
-const listAllCar = async (call, callback) => {
-    const allCars = await getAllCar()
-    callback(null, {cars: allCars})
-}
-
-const getCarrinhoByid = async (call, callback) => {
-    console.log('call.request.id: ', call.request.id)
-    const id = {'_id': call.request.id}
-    const car = await getCarByid(id)
-    console.log({car: car})
-    callback(null, {car: car})
-}
-
-const updateProductListById = async (call, callback) => {
-    const newCar = {}
-    if(call.request.car.id != "" && call.request.car.listaProdutosIds != ""){
-        newCar['listaProdutosIds'] = call.request.car.listaProdutosIds
-        newCar['id'] = call.request.car.id
-        const car = await updateProductList(newCar)
-        console.log('requestCar: ', car)
-        callback(null, {car: car}) 
+    if(cartRequest['clienteId'] != '' && cartRequest['ativo'] != '' && cartRequest['listaProdutosIds'] != ''){
+        const cartData = await insert(cartRequest)
+        console.log('cartData: ', cartData)
+        callback(null, {car: cartData}) 
     }else{
-        console.log("newCar: ", newCar)
-        callback("INTERNAL", null)
+        console.log('cartRequest: ', cartRequest)
+        callback('INTERNAL', null)
     }
 }
 
-const deleteCarrinhoById = async (call, callback) => {
-    
-    const id =  call.request.id
-    const car = await deleteCarById(id)
-    console.log({car: car})
-    callback(null, {car: car})
+export const getAllCarts = async (call, callback) => {
+    const allCarts = await listAllCarts()
+    callback(null, {cars: allCarts})
 }
 
-export{createCarrinho, listAllCar, getCarrinhoByid, updateProductListById, deleteCarrinhoById}
+export const getCartById = async (call, callback) => {
+    if(call.request.id != ""){
+        const id = call.request.id
+        const cartData = await getCarByid(id)
+        console.log({car: cartData})
+        callback(null, {car: cartData})
+    }else{
+        console.log('call.request.id: VAZIO')
+        callback("INTERNAL", {car: {id: id}})
+    }
+}
+
+export const updateStatusById = async (call, callback) => {
+    const cartRequest = {}
+    if(call.request.car.id != "" && call.request.car.status != ""){
+        cartRequest['status'] = call.request.car.status
+        cartRequest['id'] = call.request.car.id
+        const cartData = await updateStatus(cartRequest)
+        console.log('updatedCart: ', cartData)
+        callback(null, {car: cartData}) 
+    }else{
+        console.log("cartRequest: ", cartRequest)
+        callback("INTERNAL", {car: {id: id}})
+    }
+}
+
+export const updateProductListById = async (call, callback) => {
+    const cartRequest = {}
+    if(call.request.car.id != "" && call.request.car.listaProdutosIds != ""){
+        cartRequest['listaProdutosIds'] = call.request.car.listaProdutosIds
+        cartRequest['id'] = call.request.car.id
+        const cartData = await updateProductList(cartRequest)
+        console.log('updatedCart: ', cartData)
+        callback(null, {car: cartData}) 
+    }else{
+        console.log("cartRequest: ", cartRequest)
+        callback("INTERNAL", {car: {id: id}})
+    }
+}
+
+export const deleteCartById = async (call, callback) => {
+    if(call.request.id != ""){
+        const id =  call.request.id
+        const cartData = await deleteCarById(id)
+        callback(null, {car: cartData})
+    }
+    console.log({car: {id: id}})
+    callback("INTERNAL", {car: {id: id}})
+}

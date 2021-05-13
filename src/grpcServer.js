@@ -1,22 +1,24 @@
 import { loadPackageDefinition, Server, ServerCredentials } from '@grpc/grpc-js'
 import { resolve } from 'path'
-const PROTO_PATH = resolve('./src/model/protocolBuffers/carrinho.proto')
 import { loadSync } from '@grpc/proto-loader'
+
+const PROTO_PATH = resolve('./src/model/protocolBuffers/cart.proto')
 const packageDefinition = loadSync(PROTO_PATH,{})
 const protoDescriptor = loadPackageDefinition(packageDefinition)
 const packagePB = protoDescriptor.packagePB
 
-import { createCarrinho, getCarrinhoByid, listAllCar, updateProductListById, deleteCarrinhoById } from './view/carrinho.js'
+import { createCart, getCartById, getAllCarts, updateProductListById, updateStatusById, deleteCartById } from './view/carrinho.js'
 
-export function getServer() {
+export function runServer() {
     const instanceServer = new Server()
     // realiza bind/ligacao com o arquivo .proto
-    instanceServer.addService(packagePB.carrinhoService.service, {
-      "ListAllCar": listAllCar,
-      "GetCarrinhoByid": getCarrinhoByid,
-      "UpdateProductListById": updateProductListById,
-      "CreateCarrinho": createCarrinho,
-      "DeleteCarrinhoById": deleteCarrinhoById,
+    instanceServer.addService(packagePB.cartService.service, {
+      "GetAllCarts"      : getAllCarts,
+      "GetCart"          : getCartById,
+      "UpdateProductList": updateProductListById,
+      "UpdateStatus"     : updateStatusById,
+      "CreateCart"       : createCart,
+      "DeleteCart"       : deleteCartById,
     })
     const port = process.env.SERVER_PORT || 50051
     const host = process.env.SERVER_HOST || '0.0.0.0'
