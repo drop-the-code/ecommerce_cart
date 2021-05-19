@@ -4,6 +4,7 @@
 // 'int' faltantes sao por padrao 0,
 // 'string' faltantes sao por padrao '' (string vazia)
 import { insert, listAllCarts, getCarByid, deleteCarById, updateStatus, updateProductList} from '../model/cart.js'
+import createGRPCError from 'create-grpc-error'
 
 export const createCart = async (call, callback) => {
     const cartRequest = {
@@ -11,13 +12,14 @@ export const createCart = async (call, callback) => {
         'status': call.request.cart.status,
         'productListId': call.request.cart.productListId,
     }
-    if(cartRequest['clientId'] != '' && cartRequest['productListId'] != ''){
+    if(cartRequest['clientId'] !== '' && cartRequest['productListId'] != ''){
         const cartData = await insert(cartRequest)
         console.log('cartData: ', cartData)
         callback(null, {cart: cartData}) 
     }else{
         console.log('cartRequest: ', cartRequest)
-        callback('INTERNAL', null)
+        const err = createGRPCError('Boom', 2000, { ERROR_CODE: 'INVALID_TOKEN' })
+        callback(err, null)
     }
 }
 
