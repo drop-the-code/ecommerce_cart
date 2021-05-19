@@ -28,6 +28,14 @@ $ cd ecommerce-carrinho
 
 <br>
 
+### Execute o container do Banco de dados 
+
+```
+$ docker-compose up --build
+```
+
+<br>
+
 #### Instale as dependências
 
 ```
@@ -42,11 +50,13 @@ $ npm install
 
 ```
 
-$ node src/index.js
+$ npm start
 
 ```
 
 <br>
+
+
 
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=cart&uri=https%3A%2F%2Fgithub.com%2Fdrop-the-code%2Fecommerce-carrinho%2Fblob%2Fmain%2Fresources%2FInsomnia_gRPC_ecommerce_cart)
 
