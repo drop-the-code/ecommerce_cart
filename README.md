@@ -42,7 +42,7 @@ $ npm install
 
 ```
 
-$ npm run serve
+$ node src/index.js
 
 ```
 
@@ -74,6 +74,15 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 <table>
 <tr>
+
+<td  align="center">
+<a  href="#">
+<img  src="https://avatars.githubusercontent.com/u/43382610?v=4"  width="100px;"  alt="Foto do Vinicius Espindola no GitHub"/><br>
+<sub>
+<b>Vinicius Espindola</b>
+</sub>
+</a>
+</td>
 
 <td  align="center">
 <a  href="#">
