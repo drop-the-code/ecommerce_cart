@@ -1,10 +1,9 @@
 # ecommerce-carrinho
 
-https://grpc.io/docs/languages/node/basics/
+## Sobre
 
-microserviço de carrinho de compra de um e-commerce,
-usando as tecnologias:
-node.js, mongoDB,gRPC
+Trabalho de faculdade, onde este repositório é microsserviço de carrinho de compra de um e-commerce.
+O objetivo deste trabalho é fazer sistema em microserviços em diferentes linguagem usando gRPC para comunicação entre cada microserviço e a api-gateway.
 
 
 ## 🚀 Instalando Microserviço Carrinho (Cart)
@@ -48,8 +47,6 @@ $ npm run serve
 ```
 
 <br>
-
-<a href="https://insomnia.rest/run/?label=cart&uri=https%3A%2F%2Fgithub.com%2Fdrop-the-code%2Fecommerce-carrinho%2Fblob%2Fmain%2Fresources%2FInsomnia_gRPC_ecommerce_cart" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
 
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=cart&uri=https%3A%2F%2Fgithub.com%2Fdrop-the-code%2Fecommerce-carrinho%2Fblob%2Fmain%2Fresources%2FInsomnia_gRPC_ecommerce_cart)
 
