@@ -7,18 +7,19 @@ const packageDefinition = loadSync(PROTO_PATH,{})
 const protoDescriptor = loadPackageDefinition(packageDefinition)
 const packagePB = protoDescriptor.packagePB
 
-import { createCart, getCartById, getAllCarts, UpdateAddOneProduct, updateStatusById, deleteCartById } from './view/cart.js'
+import {getCartByClientId, createCart, getCartById, getAllCarts, UpdateAddOneProduct, updateStatusById, deleteCartById } from './view/cart.js'
 
 export function runServer() {
     const instanceServer = new Server()
     // realiza bind/ligacao com o arquivo .proto
     instanceServer.addService(packagePB.cartService.service, {
-      "GetAllCarts"      : getAllCarts,
-      "GetCart"          : getCartById,
-      "UpdateAddOneProduct": UpdateAddOneProduct,
-      "UpdateStatus"     : updateStatusById,
-      "CreateCart"       : createCart,
-      "DeleteCart"       : deleteCartById,
+      "GetAllCarts"         : getAllCarts,
+      "GetCart"             : getCartById,
+      "UpdateAddOneProduct" : UpdateAddOneProduct,
+      "UpdateStatus"        : updateStatusById,
+      "CreateCart"          : createCart,
+      "DeleteCart"          : deleteCartById,
+      "GetCartByClientId"   : getCartByClientId,
     })
     const port = process.env.SERVER_PORT || 50051
     const host = process.env.SERVER_HOST || '0.0.0.0'

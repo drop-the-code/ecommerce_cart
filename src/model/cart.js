@@ -29,6 +29,16 @@ export async function getCarByid(id){
         return err
     }
 }
+export async function getCartByClientid(clientId){
+    try {
+        const cartData = await modelCar.findOne({clientId:clientId})
+        return cartData
+    } catch (err){
+        console.error(err)
+        return err
+    }
+}
+getCartByClientid
 
 export async function deleteCarById(id){
     try {

@@ -3,7 +3,7 @@
 // e por padrao no gRPC, valores 'bool' faltantes são por padrao 'false',
 // 'int' faltantes sao por padrao 0,
 // 'string' faltantes sao por padrao '' (string vazia)
-import { insert, listAllCarts, getCarByid, deleteCarById, updateStatus, updateProductList} from '../model/cart.js'
+import { getCartByClientid, insert, listAllCarts, getCarByid, deleteCarById, updateStatus, updateProductList} from '../model/cart.js'
 import createGRPCError from 'create-grpc-error'
 
 export const createCart = async (call, callback) => {
@@ -40,6 +40,17 @@ export const getCartById = async (call, callback) => {
     }
 }
 
+export const getCartByClientId = async (call, callback) => {
+    if(call.request.clientId != ""){
+        const clientId = call.request.clientId
+        const cartData = await getCartByClientid(clientId)
+        console.log({car: cartData})
+        callback(null, {cart: cartData})
+    }else{
+        console.log('call.request.id: VAZIO')
+        callback("INTERNAL", {cart: {id: null}})
+    }
+}
 
 export const updateStatusById = async (call, callback) => {
     const cartRequest = {}
