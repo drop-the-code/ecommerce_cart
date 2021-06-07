@@ -3,24 +3,31 @@ services:
   mongo:
     build:
       context: .
-      dockerfile: Dockerfile.mongo
+      dockerfile: dockerfile.mongo
     container_name: mongo-database
     ports:
       - 27017:27017
-    volumes:
-      - "./mongo/bk:/bk"
-      - "./mongo/data:/data/db"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: mongo
     networks:
       net_mongo:
-        ipv4_address: 172.16.18.2
-
+        ipv4_address: 172.16.100.2
+  cart:
+    build:
+      context: .
+      dockerfile: dockerfile
+    env_file:
+      - ./.env
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    networks:
+      net_mongo:
+        ipv4_address: 172.16.100.4
 networks:
   net_mongo:
     driver: bridge
     ipam:
       driver: default
       config:
-        - subnet: 172.16.18.0/24
+        - subnet: 172.16.100.0/24
