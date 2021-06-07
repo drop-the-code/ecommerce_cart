@@ -15,6 +15,10 @@ message CartIdRequest {
 	string id = 1;
 }
 
+message ClientIdRequest {
+	string clientId = 1;
+}
+
 message CartRequest {
 	Cart cart = 1;
 }
@@ -39,4 +43,5 @@ service cartService {
   rpc UpdateStatus(CartRequest) returns (CartResponse);
   rpc CreateCart(CartRequest) returns (CartResponse);
   rpc DeleteCart(CartIdRequest) returns (CartResponse);
+  rpc GetCartByClientId(ClientIdRequest) returns (CartResponse);
 }
