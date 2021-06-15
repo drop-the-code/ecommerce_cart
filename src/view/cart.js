@@ -66,7 +66,21 @@ export const updateStatusById = async (call, callback) => {
     }
 }
 
-export const UpdateAddOneProduct = async (call, callback) => {
+export const updateRemoveOneProduct = async (call, callback) => {
+    const cartRequest = {}
+    if(call.request.cart.id != "" && call.request.cart.productListId != ""){
+        cartRequest['productListId'] = call.request.cart.productListId
+        cartRequest['id'] = call.request.cart.id
+        const cartData = await updateRemoveProductList(cartRequest)
+        console.log('updatedCart: ', cartData)
+        callback(null, {cart: cartData}) 
+    }else{
+        console.log("cartRequest: ", cartRequest)
+        callback("INTERNAL", {cart: {id: id}})
+    }
+}
+
+export const updateAddOneProduct = async (call, callback) => {
     const cartRequest = {}
     if(call.request.cart.id != "" && call.request.cart.productListId != ""){
         cartRequest['productListId'] = call.request.cart.productListId

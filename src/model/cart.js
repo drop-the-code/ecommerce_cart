@@ -50,6 +50,26 @@ export async function deleteCarById(id){
     }
 }
 
+//https://stackoverflow.com/questions/42474045/mongoose-remove-element-in-array-using-pull/42474970
+export async function updateRemoveProductList(cartRequest){
+    try {
+        const query = {_id: cartRequest['id']}
+        const updateIn = {
+            $pull:{ productListId: cartRequest['productListId'][0]},
+        }
+        const options = { new: true }; 
+        const safe = { safe: true, upsert: true };
+        //findByIdAndUpdate
+        const updatedCar = await modelCar.findOneAndUpdate(query, updateIn, options, safe)
+        return updatedCar
+        //return res.status(200).json(node.productListId);
+    } catch (err){
+        console.error(err)
+        return err
+        //return handleError(res, err); 
+    }
+}
+
 export async function updateProductList(cartRequest){
     try {
         const query = {_id: cartRequest['id']}
