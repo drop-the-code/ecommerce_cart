@@ -44,4 +44,5 @@ service cartService {
   rpc CreateCart(CartRequest) returns (CartResponse);
   rpc DeleteCart(CartIdRequest) returns (CartResponse);
   rpc GetCartByClientId(ClientIdRequest) returns (CartResponse);
+  rpc UpdateRemoveOneProduct(CartRequest) returns (CartResponse);
 }
