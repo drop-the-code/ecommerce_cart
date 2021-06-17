@@ -23,9 +23,6 @@ message CartRequest {
 	Cart cart = 1;
 }
 
-message Empty {
-}
-
 //mensagem que deve ser recebida
 message CartResponse {
   Cart cart = 1;
@@ -33,6 +30,9 @@ message CartResponse {
 
 message CartsResponse {
   repeated Cart carts = 1;
+}
+
+message Empty {
 }
 
 //metodos

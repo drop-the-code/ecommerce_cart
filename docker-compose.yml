@@ -3,7 +3,7 @@ services:
   mongo:
     build:
       context: .
-      dockerfile: dockerfile.mongo
+      dockerfile: docker/dockerfile.mongo
     container_name: mongo-database
     ports:
       - 27017:27017
@@ -14,9 +14,11 @@ services:
       net_mongo:
         ipv4_address: 172.16.100.2
   cart:
+    volumes: 
+      - .:/opt/app
     build:
       context: .
-      dockerfile: dockerfile
+      dockerfile: docker/dockerfile.app.prod
     env_file:
       - ./.env
     ports:

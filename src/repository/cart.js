@@ -1,8 +1,9 @@
-import { modelCar } from '../db/cartSchema.js'
+import { modelCart } from '../model/cartSchema.js'
+//var ObjectId = require('mongoose').Types.ObjectId;
 
 export async function insert(cartRequest){
     try {
-        const newCartData = await modelCar.create(cartRequest)
+        const newCartData = await modelCart.create(cartRequest)
         return newCartData
     } catch (err) {
         console.error(err)
@@ -12,7 +13,7 @@ export async function insert(cartRequest){
 
 export async function listAllCarts(){
     try {
-        const allCarts = await modelCar.find({})
+        const allCarts = await modelCart.find({})
         return allCarts
     } catch (err){
         console.error(err)
@@ -22,27 +23,28 @@ export async function listAllCarts(){
 
 export async function getCarByid(id){
     try {
-        const cartData = await modelCar.findOne({_id:id})
+        const cartData = await modelCart.findOne({_id:id})
         return cartData
     } catch (err){
         console.error(err)
         return err
     }
 }
-export async function getCartByClientid(clientId){
+export async function cartByClientid(clientId){
     try {
-        const cartData = await modelCar.findOne({clientId:clientId})
+        var query = {clientId:clientId, status:true}
+        const cartData = await modelCart.findOne(query)
         return cartData
     } catch (err){
         console.error(err)
         return err
     }
 }
-getCartByClientid
+
 
 export async function deleteCarById(id){
     try {
-        const cartData = await modelCar.findOneAndRemove({_id:id})
+        const cartData = await modelCart.findOneAndRemove({_id:id})
         return cartData || {id: id}
     } catch (err){
         console.error(err)
@@ -53,14 +55,16 @@ export async function deleteCarById(id){
 //https://stackoverflow.com/questions/42474045/mongoose-remove-element-in-array-using-pull/42474970
 export async function updateRemoveProductList(cartRequest){
     try {
-        const query = {_id: cartRequest['id']}
+        const query = {_id: cartRequest['id']};
         const updateIn = {
-            $pull:{ productListId: cartRequest['productListId'][0]},
-        }
+            $pull:{ productListId: {$eq:cartRequest['productListId'][0]}},//$eq equals
+        };
         const options = { new: true }; 
         const safe = { safe: true, upsert: true };
         //findByIdAndUpdate
-        const updatedCar = await modelCar.findOneAndUpdate(query, updateIn, options, safe)
+        console.log('print3')
+        const updatedCar = await modelCart.findOneAndUpdate(query, updateIn, options)
+        console.log('print4')
         return updatedCar
         //return res.status(200).json(node.productListId);
     } catch (err){
@@ -77,7 +81,7 @@ export async function updateProductList(cartRequest){
             $push:{ productListId: cartRequest['productListId'][0]},
         }
         const options = { new: true }; 
-        const updatedCar = await modelCar.findOneAndUpdate(query, updateIn, options)
+        const updatedCar = await modelCart.findOneAndUpdate(query, updateIn, options)
         return updatedCar
     } catch (err){
         console.error(err)
@@ -90,7 +94,7 @@ export async function updateStatus(cartRequest){
         const query = {_id: cartRequest['id']}
         const updateIn = {status: cartRequest['status']}
         const options = { new: true }; 
-        const updatedCar = await modelCar.findOneAndUpdate(query, updateIn, options)
+        const updatedCar = await modelCart.findOneAndUpdate(query, updateIn, options)
         return updatedCar
     } catch (err){
         console.error(err)

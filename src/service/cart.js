@@ -3,7 +3,7 @@
 // e por padrao no gRPC, valores 'bool' faltantes são por padrao 'false',
 // 'int' faltantes sao por padrao 0,
 // 'string' faltantes sao por padrao '' (string vazia)
-import { getCartByClientid, insert, listAllCarts, getCarByid, deleteCarById, updateStatus, updateProductList} from '../model/cart.js'
+import { updateRemoveProductList, cartByClientid, insert, listAllCarts, getCarByid, deleteCarById, updateStatus, updateProductList} from '../repository/cart.js'
 import createGRPCError from 'create-grpc-error'
 
 export const createCart = async (call, callback) => {
@@ -12,7 +12,7 @@ export const createCart = async (call, callback) => {
         'status': call.request.cart.status,
         'productListId': call.request.cart.productListId,
     }
-    if(cartRequest['clientId'] !== '' && cartRequest['productListId'] != ''){
+    if(cartRequest['clientId'] !== ''){
         const cartData = await insert(cartRequest)
         console.log('cartData: ', cartData)
         callback(null, {cart: cartData}) 
@@ -43,13 +43,21 @@ export const getCartById = async (call, callback) => {
 export const getCartByClientId = async (call, callback) => {
     if(call.request.clientId != ""){
         const clientId = call.request.clientId
-        const cartData = await getCartByClientid(clientId)
-        console.log({car: cartData})
-        callback(null, {cart: cartData})
-    }else{
-        console.log('call.request.id: VAZIO')
-        callback("INTERNAL", {cart: {id: null}})
+        if(clientId != null){
+            const cartData = await cartByClientid(clientId)
+            if(cartData == null){//client yet no have cart
+                const cartRequest = {
+                    'clientId': call.request.cart.clientId,
+                    'status': true,
+                }
+                cartData = insert(cartRequest);
+            }
+            console.log({cart: cartData})
+            callback(null, {cart: cartData})
+        }
     }
+    console.log('call.request.id: VAZIO')
+    callback("INTERNAL", {cart: {id: null}}) 
 }
 
 export const updateStatusById = async (call, callback) => {
@@ -58,7 +66,7 @@ export const updateStatusById = async (call, callback) => {
         cartRequest['status'] = call.request.cart.status
         cartRequest['id'] = call.request.cart.id
         const cartData = await updateStatus(cartRequest)
-        console.log('updatedCart: ', cartData)
+        console.log('updatedCart3: ', cartData)
         callback(null, {cart: cartData}) 
     }else{
         console.log('call.request', call.request)
@@ -67,26 +75,41 @@ export const updateStatusById = async (call, callback) => {
 }
 
 export const updateRemoveOneProduct = async (call, callback) => {
-    const cartRequest = {}
-    if(call.request.cart.id != "" && call.request.cart.productListId != ""){
-        cartRequest['productListId'] = call.request.cart.productListId
-        cartRequest['id'] = call.request.cart.id
-        const cartData = await updateRemoveProductList(cartRequest)
-        console.log('updatedCart: ', cartData)
-        callback(null, {cart: cartData}) 
-    }else{
-        console.log("cartRequest: ", cartRequest)
-        callback("INTERNAL", {cart: {id: id}})
+    try {
+        console.log('print1')
+        const cartRequest = {}
+        if(call.request.cart.id != "" && call.request.cart.productListId != ""){
+                cartRequest['productListId'] = call.request.cart.productListId
+                cartRequest['id'] = call.request.cart.id
+                console.log('print2')
+                const cartData = await updateRemoveProductList(cartRequest)
+                console.log('print5')
+                console.log('updatedCart2: ', cartData)
+                callback(null, {cart: cartData}) 
+        }else{
+            console.log("cartRequest: ", cartRequest)
+            callback("INTERNAL", {cart: {id: id}})
+        }
+    } catch (error) {
+        console.log(error)
     }
 }
 
 export const updateAddOneProduct = async (call, callback) => {
     const cartRequest = {}
-    if(call.request.cart.id != "" && call.request.cart.productListId != ""){
+    if(call.request.cart.clientId != "" && call.request.cart.productListId != ""){
         cartRequest['productListId'] = call.request.cart.productListId
-        cartRequest['id'] = call.request.cart.id
-        const cartData = await updateProductList(cartRequest)
-        console.log('updatedCart: ', cartData)
+        cartRequest['clientId'] = call.request.cart.clientId
+        const cart = await cartByClientid(cartRequest['clientId']);
+        console.log('Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+        console.log(cart)
+        if(cart == null){// client yet no have cart
+            cartData = insert(cartRequest);
+        }else{
+            cartRequest['id'] = cart._id
+            const cartData = await updateProductList(cartRequest)
+        }
+        console.log('updatedCarttt: ', cartData)
         callback(null, {cart: cartData}) 
     }else{
         console.log("cartRequest: ", cartRequest)

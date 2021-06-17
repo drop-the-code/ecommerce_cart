@@ -13,15 +13,14 @@ export function runServer() {
     const instanceServer = new Server()
     // realiza bind/ligacao com o arquivo .proto
     instanceServer.addService(packagePB.cartService.service, {
-      "GetAllCarts"         : getAllCarts,
-      "GetCart"             : getCartById,
-      "UpdateAddOneProduct" : updateAddOneProduct,
+      "GetAllCarts"            : getAllCarts,
+      "GetCart"                : getCartById,
+      "UpdateAddOneProduct"    : updateAddOneProduct,
       "UpdateRemoveOneProduct" : updateRemoveOneProduct,
-      "UpdateStatus"        : updateStatusById,
-      "CreateCart"          : createCart,
-      "DeleteCart"          : deleteCartById,
-      "GetCartByClientId"   : getCartByClientId,
-      
+      "UpdateStatus"           : updateStatusById,
+      "CreateCart"             : createCart,
+      "DeleteCart"             : deleteCartById,
+      "GetCartByClientId"      : getCartByClientId,
     })
     const port = process.env.SERVER_PORT || 50051
     const host = process.env.SERVER_HOST || '0.0.0.0'
