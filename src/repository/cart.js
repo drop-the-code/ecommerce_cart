@@ -3,6 +3,7 @@ import { modelCart } from '../model/cartSchema.js'
 
 export async function insert(cartRequest){
     try {
+        cartRequest['status'] = true;
         const newCartData = await modelCart.create(cartRequest)
         return newCartData
     } catch (err) {

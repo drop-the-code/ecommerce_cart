@@ -103,7 +103,7 @@ export const updateAddOneProduct = async (call, callback) => {
         const cart = await cartByClientid(cartRequest['clientId']);
         //console.log(cart)
         if(cart == null){// client yet no have cart
-            cartRequest['status'] = true;
+            
             cartData = insert(cartRequest);
         }else{
             cartRequest['id'] = cart._id
