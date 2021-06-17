@@ -101,9 +101,9 @@ export const updateAddOneProduct = async (call, callback) => {
         cartRequest['productListId'] = call.request.cart.productListId
         cartRequest['clientId'] = call.request.cart.clientId
         const cart = await cartByClientid(cartRequest['clientId']);
-        console.log('Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-        console.log(cart)
+        //console.log(cart)
         if(cart == null){// client yet no have cart
+            cartRequest['status'] = true;
             cartData = insert(cartRequest);
         }else{
             cartRequest['id'] = cart._id
