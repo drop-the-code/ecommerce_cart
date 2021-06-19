@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
 
 export async function connectionMongoose(){
-    const USERNAME = process.env.DB_USERNAME || 'root'
-    const PASSWORD = process.env.DB_PASSWORD || 'mongo'
-    const HOST     = process.env.DB_HOST     || '127.0.0.1' //172.16.18.2:27017
-    const PORT     = process.env.DB_PORT     || '27017'
-    const BASE     = process.env.DB_BASE     || 'carrinho'
+    const USERNAME = process.env.DB_USERNAME //|| 'root'
+    const PASSWORD = process.env.DB_PASSWORD //|| 'mongo'
+    const HOST     = process.env.DB_HOST     //|| '127.0.0.1' //172.16.18.2:27017
+    const PORT     = process.env.DB_PORT     //|| '27017'
+    const BASE     = process.env.DB_BASE     //|| 'carrinho'
     const DB_CONNECTION_STRING = `mongodb://${USERNAME}:${PASSWORD}@${HOST}:${PORT}/${BASE}?authSource=admin`
     await mongoose.connect(
             DB_CONNECTION_STRING, {
