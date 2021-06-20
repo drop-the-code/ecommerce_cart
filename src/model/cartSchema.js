@@ -1,5 +1,7 @@
-import mongoose from 'mongoose';
-const { Schema } = mongoose
+// import mongoose from 'mongoose';
+// const { Schema } = mongoose
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const cartSchema = Schema({
   clientId: String,
@@ -7,4 +9,4 @@ const cartSchema = Schema({
   productListId: [String]
 }, {timestamps: true});
 
-export const modelCar = mongoose.model('cart', cartSchema)
+module.exports =  modelCart = mongoose.model('cart', cartSchema)

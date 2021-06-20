@@ -1,6 +1,6 @@
-import mongoose from 'mongoose'
-
-export async function connectionMongoose(){
+// import mongoose from 'mongoose'
+const mongoose = require('mongoose')
+const connectionMongoose = async function connectionMongoose(){
     const USERNAME = process.env.DB_USERNAME //|| 'root'
     const PASSWORD = process.env.DB_PASSWORD //|| 'mongo'
     const HOST     = process.env.DB_HOST     //|| '127.0.0.1' //172.16.18.2:27017
@@ -21,3 +21,5 @@ export async function connectionMongoose(){
         console.log('conectado no mongoose')
     });
 }
+
+module.exports = connectionMongoose

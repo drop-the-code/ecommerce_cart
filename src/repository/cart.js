@@ -1,10 +1,12 @@
-import { modelCart } from '../model/cartSchema.js'
+// import { } from '../model/cartSchema.js'
 //var ObjectId = require('mongoose').Types.ObjectId;
+const cart = require("../model/cartSchema")
+const cartRepository = {}
 
-export async function insert(cartRequest){
+cartRepository.insert = async function insert(cartRequest){
     try {
         cartRequest['status'] = true;
-        const newCartData = await modelCart.create(cartRequest)
+        const newCartData = await cart.create(cartRequest)
         return newCartData
     } catch (err) {
         console.error(err)
@@ -12,9 +14,9 @@ export async function insert(cartRequest){
     }
 }
 
-export async function listAllCarts(){
+cartRepository.listAllCarts = async function listAllCarts(){
     try {
-        const allCarts = await modelCart.find({})
+        const allCarts = await cart.find({})
         return allCarts
     } catch (err){
         console.error(err)
@@ -22,19 +24,19 @@ export async function listAllCarts(){
     }
 }
 
-export async function getCarByid(id){
+cartRepository.getCarByid = async function getCarByid(id){
     try {
-        const cartData = await modelCart.findOne({_id:id})
+        const cartData = await cart.findOne({"_id":id})
         return cartData
     } catch (err){
         console.error(err)
         return err
     }
 }
-export async function cartByClientid(clientId){
+cartRepository.cartByClientid = async function cartByClientid(clientId){
     try {
-        var query = {clientId:clientId, status:true}
-        const cartData = await modelCart.findOne(query)
+        var query = {"clientId": clientId, "status":true}
+        const cartData = await cart.findOne(query)
         return cartData
     } catch (err){
         console.error(err)
@@ -43,9 +45,9 @@ export async function cartByClientid(clientId){
 }
 
 
-export async function deleteCarById(id){
+cartRepository.deleteCarById = async function deleteCarById(id){
     try {
-        const cartData = await modelCart.findOneAndRemove({_id:id})
+        const cartData = await cart.findOneAndRemove({"_id":id})
         return cartData || {id: id}
     } catch (err){
         console.error(err)
@@ -54,17 +56,18 @@ export async function deleteCarById(id){
 }
 
 //https://stackoverflow.com/questions/42474045/mongoose-remove-element-in-array-using-pull/42474970
-export async function updateRemoveProductList(cartRequest){
+cartRepository.updateRemoveProductList = async function updateRemoveProductList(cartRequest){
+    console.log(cartRequest.id)
     try {
-        const query = {_id: cartRequest['id']};
+        const query = {"_id": cartRequest['id']};
         const updateIn = {
-            $pull:{ productListId: {$eq:cartRequest['productListId'][0]}},//$eq equals
+            $pull :  { "productListId":  cartRequest['productListId'][0] } 
         };
-        const options = { new: true }; 
-        const safe = { safe: true, upsert: true };
+        const options = { "new": true }; 
+        const safe = { "safe": true, "upsert": true };
         //findByIdAndUpdate
         console.log('print3')
-        const updatedCar = await modelCart.findOneAndUpdate(query, updateIn, options)
+        const updatedCar = await cart.findOneAndUpdate(query, updateIn, options)
         console.log('print4')
         return updatedCar
         //return res.status(200).json(node.productListId);
@@ -75,14 +78,14 @@ export async function updateRemoveProductList(cartRequest){
     }
 }
 
-export async function updateProductList(cartRequest){
+cartRepository.updateProductList = async function updateProductList(cartRequest){
     try {
-        const query = {_id: cartRequest['id']}
+        const query = {"_id": cartRequest['id']}
         const updateIn = {
-            $push:{ productListId: cartRequest['productListId'][0]},
+            $push:{ "productListId": cartRequest['productListId'][0]},
         }
-        const options = { new: true }; 
-        const updatedCar = await modelCart.findOneAndUpdate(query, updateIn, options)
+        const options = { "new": true }; 
+        const updatedCar = await cart.findOneAndUpdate(query, updateIn, options)
         return updatedCar
     } catch (err){
         console.error(err)
@@ -90,15 +93,17 @@ export async function updateProductList(cartRequest){
     }
 }
 
-export async function updateStatus(cartRequest){
+cartRepository.updateStatus = async function updateStatus(cartRequest){
     try {
-        const query = {_id: cartRequest['id']}
-        const updateIn = {status: cartRequest['status']}
-        const options = { new: true }; 
-        const updatedCar = await modelCart.findOneAndUpdate(query, updateIn, options)
+        const query = { "_id" : cartRequest.id}
+        const updateIn = {"status": cartRequest['status']}
+        const options = { "new" : true }; 
+        const updatedCar = await cart.findOneAndUpdate(query, updateIn, options)
         return updatedCar
     } catch (err){
         console.error(err)
         return err
     }
 }
+
+module.exports = cartRepository

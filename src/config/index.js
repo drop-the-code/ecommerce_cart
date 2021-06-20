@@ -1,12 +1,15 @@
-import { resolve } from 'path'
-import { config } from 'dotenv'
+//import { resolve } from 'path'
+const path = require('path')
+const resolve = path.resolve
+const dotenv = require('dotenv')
+//import { config } from 'dotenv'
 
 const getEnvPath = (envFilename) => 
     resolve('./', envFilename)
 
 const initializeEnvironmentVariables = (envFilename) => {
     const envPath = getEnvPath(envFilename)
-    return config({path: envPath})
+    return dotenv.config({path: envPath})
 }
 
-export { initializeEnvironmentVariables, getEnvPath }
+module.exports = { initializeEnvironmentVariables, getEnvPath }
