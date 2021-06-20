@@ -1,5 +1,5 @@
 {
-  "name": "ecommerce-carrinho",
+  "name": "ecommerce_cart",
   "version": "1.0.0",
   "description": "gRPC with Node.js",
   "scripts": {
@@ -9,11 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/drop-the-code/ecommerce-carrinho.git"
+    "url": "https://github.com/drop-the-code/ecommerce_cart.git"
   },
   "author": "Kaio Lino",
   "license": "ISC",
-  "homepage": "https://github.com/drop-the-code/ecommerce-carrinho#readme",
+  "homepage": "https://github.com/drop-the-code/ecommerce_cart#readme",
   "dependencies": {
     "@grpc/grpc-js": "^1.1.0",
     "@grpc/proto-loader": "^0.5.0",
