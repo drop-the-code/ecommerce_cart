@@ -34,13 +34,20 @@ cartRepository.getCarByid = async function getCarByid(id){
     }
 }
 cartRepository.cartByClientid = async function cartByClientid(clientId){
+    let cartData = {}
     try {
-        var query = {"clientId": clientId, "status":true}
+        var query = {"clientId": clientId, "status": true}
         const cartData = await cart.findOne(query)
+        // cart.findOne(query)
+        // .then((res) => {
+        //     cartData = res
+        // }  )
+        // .catch((err) => console.error(err))
+
         return cartData
     } catch (err){
         console.error(err)
-        return err
+        return null;
     }
 }
 
@@ -85,7 +92,7 @@ cartRepository.updateProductList = async function updateProductList(cartRequest)
             $push:{ "productListId": cartRequest['productListId'][0]},
         }
         const options = { "new": true }; 
-        const updatedCar = await cart.findOneAndUpdate(query, updateIn, options)
+        const updatedCar = await cart.findOneAndUpdate(query, updateIn,options)
         return updatedCar
     } catch (err){
         console.error(err)
